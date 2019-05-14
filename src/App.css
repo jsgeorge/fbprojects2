@@ -1,0 +1,156 @@
+.navbar-brand {
+  color: rgb(85, 190, 250);
+}
+.margin-top {
+  margin-top: 50px;
+}
+.appFont1 {
+  color: rgb(52, 88, 119);
+}
+.appFont2 {
+  color: rgb(84, 154, 219);
+}
+.bkdBlack {
+  background: #111;
+  color: #fff;
+}
+i {
+  margin-right: 4px;
+}
+.btn {
+  margin-right: 5px;
+}
+.small {
+  font-size: 14px;
+}
+.appBdk1 {
+  background: rgb(52, 88, 119);
+}
+.headerFont {
+  font-size: 14px;
+  font-weight: bold;
+}
+.listingCmds {
+  width: 250px;
+  float: right;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+.btnNew {
+  background: green;
+  color: #fff;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list-group-item {
+  margin-bottom: 5px;
+}
+.fullWidth {
+  width: 100%;
+}
+.table {
+  clear: left;
+}
+ul.table li {
+  float: left;
+  display: block;
+  font-size: 16px;
+}
+.authForm {
+  max-width: 300px;
+}
+.item-name {
+  width: 30%;
+}
+.home-wrapper {
+  padding: 10%;
+}
+.home-wrapper h3 {
+  color: #fff;
+  padding: 10%;
+  background: black;
+}
+.home-link-wrapper {
+  padding: 10%;
+}
+.home-link-wrapper ul li {
+  margin: 20px auto;
+}
+.home-link {
+  clear: left;
+  width: 100px;
+  text-align: center;
+  background: blue;
+  color: #fff;
+  padding: 5px 25px;
+  border-radius: 20px;
+}
+.item-email {
+  width: 35%;
+}
+.item-bal {
+  width: 15%;
+  text-align: right;
+}
+.item-clientid {
+  width: 25%;
+}
+.item-txdate {
+  width: 10%;
+}
+.item-tx {
+  width: 10%;
+}
+.item-cmd {
+  width: 20%;
+  text-align: right;
+}
+.desktop {
+  display: block;
+}
+.mobile {
+  display: none;
+}
+.content {
+  float: left;
+}
+.sidebar {
+  float: right;
+}
+.nav-link {
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+.sidebar {
+  background: #fff;
+}
+@media (max-width: 500px) {
+  .sidebar {
+    margin-top: 20px;
+    padding-top: 10px;
+  }
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
+  ul.navbar-nav mr-auto menu {
+    display: none;
+    clear: left;
+    width: 100%;
+  }
+  ul.table li {
+    float: none;
+    clear: left;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
