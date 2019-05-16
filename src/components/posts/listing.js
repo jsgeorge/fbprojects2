@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
@@ -7,7 +7,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import Project from "./post";
 //import { getProjects } from "../../actions/projectActions";
 
-//import Notifications from "./categories";
+import Notifications from "./categories";
 //import HomePage from "../homepage";
 
 class Listing extends Component {
@@ -24,27 +24,30 @@ class Listing extends Component {
   //   }
   // }
   render() {
-    const { projects } = this.props;
+    const { projects, auth } = this.props;
     // const { isAuthenticated } = this.state;
+    if (!auth.uid) return <Redirect to="/auth/login" />;
     return (
-      <div>
-        <div>
+      <div className="container">
+        <div className="row">
           <div className="col-md-8 col-sm-8 col-xs-12 content">
-            {projects ? (
+            <h5>Current Projects</h5>
+            {projects && projects.length > 0 ? (
               <section>
-                <ul className="table list-group">
+                <ul className="table list-group project-wrapper">
                   {projects.map(project => (
                     <Project key={project.id} project={project} />
                   ))}
                 </ul>
               </section>
             ) : (
-              <p>No current projects</p>
+              <div className="item">
+                <p>No current projects</p>
+              </div>
             )}
           </div>
           <div className="col-md-4 col-sm-4 col-xs-12 sidebar">
-            <h5>Notifications</h5>
-            {/* <Notifications /> */}
+            <h5>Notifications</h5> <Notifications />
           </div>
         </div>
         )
@@ -69,7 +72,8 @@ const mapStateToProps = state => {
   //   projects: state.project.projects
   // };
   return {
-    projects: state.firestore.ordered.projects
+    projects: state.firestore.ordered.projects,
+    auth: state.firebase.auth
   };
 };
 export default compose(

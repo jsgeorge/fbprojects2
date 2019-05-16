@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInputGroup";
 //import PropTypes from "prop-types";
 
-//import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 //import { compose } from "redux";
 import { connect } from "react-redux";
 //import { firebaseConnect } from "react-redux-firebase";
@@ -41,41 +41,46 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     //const { message, messageType } = this.props.notify;
-    const { authError } = this.props;
+    const { authError, auth } = this.props;
+    if (auth.uid) return <Redirect to="/" />;
 
     return (
-      <div classNam="col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2 authForm">
-        <div className="card">
-          <div className="card-header">
-            <h4 className="text-center appFont2">
-              <i className="fas fa-lock appFont" /> Login
-            </h4>
-          </div>
-          <div className="card-body">
-            {authError ? <Alert message={authError} type="error" /> : null}
-            <form onSubmit={this.onSubmit}>
-              <TextInputGroup
-                label="Email"
-                name="email"
-                value={email}
-                onChange={this.onChange}
-                //error={errors.name}
-              />
-              <TextInputGroup
-                label="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={this.onChange}
-                //error={errors.password}
-              />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 offset-md-3 ">
+            <div className="card">
+              <div className="card-header">
+                <h4 className="text-center appFont2">
+                  <i className="fas fa-lock appFont" /> Login
+                </h4>
+              </div>
+              <div className="card-body">
+                {authError ? <Alert message={authError} type="error" /> : null}
+                <form onSubmit={this.onSubmit}>
+                  <TextInputGroup
+                    label="Email"
+                    name="email"
+                    value={email}
+                    onChange={this.onChange}
+                    //error={errors.name}
+                  />
+                  <TextInputGroup
+                    label="Password"
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={this.onChange}
+                    //error={errors.password}
+                  />
 
-              <input
-                type="submit"
-                value="Login"
-                className="btn btn-primary btn-block"
-              />
-            </form>
+                  <input
+                    type="submit"
+                    value="Login"
+                    className="btn btn-primary btn-block"
+                  />
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -100,7 +105,8 @@ class Login extends Component {
 //export default Login;
 const mapStateToProps = state => {
   return {
-    authError: state.auth.authError
+    authError: state.auth.authError,
+    auth: state.firebase.auth
   };
 };
 const mapDispatchToProps = dispatch => {

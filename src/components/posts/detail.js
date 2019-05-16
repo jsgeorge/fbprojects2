@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
+import { getDateString } from "../../helpers/misc";
 //import PropTypes from "prop-types";
 
 class Detail extends Component {
@@ -12,35 +13,41 @@ class Detail extends Component {
     // this.props.history.push("/");
   };
   render() {
-    const { project } = this.props;
-    if (project) {
+    const { id, author, title, published, content } = this.props.project;
+    const dateString = getDateString(published.seconds * 1000);
+
+    if (this.props.project) {
       return (
-        <div>
-          <div className="card mb-3">
-            <div className="card-body">
-              <p>
-                <i class="fas fa-arrow-alt-circle-left appFont2" />
-                <Link to="/projects">back to projects</Link>
-                <span className="listingCmds">
-                  <Link
-                    to={`${project.id}/edit`}
-                    class="btn btn-success btn-sm bkdBlack"
-                  >
-                    Edit
-                  </Link>
+        <div className="container">
+          <div class="row">
+            <div className="col-md-12 content ">
+              <div className="detail">
+                <p>
+                  <i class="fas fa-arrow-alt-circle-left appFont2" />
+                  <Link to="/projects">back to projects</Link>
+                  <span className="listingCmds">
+                    <Link
+                      to={`${id}/edit`}
+                      class="btn btn-success btn-sm bkdBlack"
+                    >
+                      Edit
+                    </Link>
 
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => this.onDelete()}
-                  >
-                    Delete
-                  </button>
-                </span>
-              </p>
-              <h6>{project.author}</h6>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => this.onDelete()}
+                    >
+                      Delete
+                    </button>
+                  </span>
+                </p>
+                <h6>
+                  {author} {published ? dateString : null}
+                </h6>
 
-              <h3>{project.title}</h3>
-              <p>{project.content}</p>
+                <h3>{title}</h3>
+                <p>{content}</p>
+              </div>
             </div>
           </div>
         </div>

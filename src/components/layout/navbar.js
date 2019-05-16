@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 //import { DisplayUser } from "./displayuser";
 import { UserLogout } from "../../actions/authActions";
+//import { logo } from '../../../public/images/logo.png';
 
 const Navbar = props => {
   const onLogout = () => {
@@ -11,7 +12,7 @@ const Navbar = props => {
     window.location.href = `/`;
   };
 
-  const { branding, auth, isAuthenticated } = props;
+  const { branding, auth, profile, isAuthenticated } = props;
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3 py-0">
@@ -43,20 +44,20 @@ const Navbar = props => {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav mr-auto ">
-              {isAuthenticated ? (
+              {/* {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/projects" className="nav-link">
                     Projects
                   </Link>
                 </li>
-              ) : null}
-              {isAuthenticated ? (
+              ) : null} */}
+              {/* {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/settings" className="nav-link">
                     Settings
                   </Link>
                 </li>
-              ) : null}
+              ) : null} */}
               {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/projects/add" className="nav-link btnNew">
@@ -68,7 +69,7 @@ const Navbar = props => {
               {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/user" className="nav-link">
-                    {auth.email.substring(0, auth.email.indexOf("@"))}
+                    <span className="user-logo">{profile.initials}</span>
                   </Link>
                 </li>
               ) : null}

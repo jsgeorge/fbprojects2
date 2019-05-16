@@ -2,7 +2,7 @@ const initState = {
   authError: null
 };
 const authReducer = (state = initState, action) => {
-  switch (action) {
+  switch (action.type) {
     case "LOGIN_ERROR":
       console.log("login error");
       return {
@@ -19,7 +19,12 @@ const authReducer = (state = initState, action) => {
     case "REGISTER_SUCCESS":
       return {
         ...state,
-        authError: "Register Failed"
+        authError: null
+      };
+    case "REGISTER_ERROR":
+      return {
+        ...state,
+        authError: action.err.message
       };
     default:
       return state;

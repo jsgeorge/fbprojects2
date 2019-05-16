@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInputGroup";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 //import { compose } from "redux";
 import { connect } from "react-redux";
 //import { firestoreConnect } from "react-redux-firebase";
@@ -15,15 +15,7 @@ class AddPost extends Component {
     published: new Date(),
     errors: {}
   };
-  componentDidMount = () => {
-    // console.log(this.props.auth.email);
-    // this.setState({
-    //   author: this.props.auth.email.substring(
-    //     0,
-    //     this.props.auth.email.indexOf("@")
-    //   )
-    // });
-  };
+
   onSubmit = e => {
     e.preventDefault();
     // this.props.firestore.add("projects", this.state);
@@ -39,7 +31,12 @@ class AddPost extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    const { auth } = this.props;
+
+    if (!auth.uid) return <Redirect to="/auth/login" />;
+
     const { title, content, errors } = this.state;
+
     return (
       <div className="card mb-3">
         <p>
@@ -96,6 +93,12 @@ class AddPost extends Component {
 //     auth: state.firebase.auth
 //   }))
 // )(AddPost);
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -103,6 +106,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AddPost);

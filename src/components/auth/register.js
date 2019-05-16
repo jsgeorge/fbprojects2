@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInputGroup";
 //import PropTypes from "prop-types";
 
-//import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 //import { compose } from "redux";
 import { connect } from "react-redux";
 //import { firebaseConnect } from "react-redux-firebase";
 //import { notifyUser } from "../../actions/notify";
-//import Alert from "../layout/alert";
+import Alert from "../layout/alert";
 import { UserRegister } from "../../actions/authActions";
 
 class Register extends Component {
@@ -36,7 +36,6 @@ class Register extends Component {
     //     )//
     //   );
     this.props.UserRegister(this.state);
-    this.props.history.push("/projects");
   };
 
   onChange = e => {
@@ -45,64 +44,70 @@ class Register extends Component {
   render() {
     const { email, password, username, firstname, lastname } = this.state;
     //const { message, messageType } = this.props.notify;
+    const { authError, auth } = this.props;
+    if (auth.uid) return <Redirect to="/" />;
 
     return (
-      <div classNam="col-md-5 col-md-offset-2 col-sm-5 col-sm-offset-2">
-        <div className="card">
-          <div className="card-header appFont">
-            <h4 className="text-center">Register</h4>
-          </div>
-          <div className="card-body">
-            {/* {message ? (
-              <Alert message={message} messageType={messageType} />
-            ) : null} */}
-            <form onSubmit={this.onSubmit}>
-              <TextInputGroup
-                label="Email"
-                name="email"
-                value={email}
-                onChange={this.onChange}
-                //error={errors.name}
-              />
-              <TextInputGroup
-                label="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={this.onChange}
-                //error={errors.password}
-              />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 offset-md-3 ">
+            <div className="card">
+              <div className="card-header appFont">
+                <h4 className="text-center">Register</h4>
+              </div>
+              <div className="card-body">
+                {authError ? (
+                  <Alert message={authError} messageType={"error"} />
+                ) : null}
+                <form onSubmit={this.onSubmit}>
+                  <TextInputGroup
+                    label="Email"
+                    name="email"
+                    value={email}
+                    onChange={this.onChange}
+                    //error={errors.name}
+                  />
+                  <TextInputGroup
+                    label="Password"
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={this.onChange}
+                    //error={errors.password}
+                  />
 
-              <TextInputGroup
-                label="First Name"
-                name="firstname"
-                type="text"
-                value={firstname}
-                onChange={this.onChange}
-                //error={errors.password}
-              />
-              <TextInputGroup
-                label="Last Name"
-                name="lastname"
-                type="text"
-                value={lastname}
-                onChange={this.onChange}
-                //error={errors.password}
-              />
-              <TextInputGroup
-                label="Username"
-                name="username"
-                type="text"
-                value={username}
-                onChange={this.onChange}
-                //error={errors.password}
-              />
-              <input
-                type="submit"
-                value="Login"
-                className="btn btn-primary btn-block"
-              />
-            </form>
+                  <TextInputGroup
+                    label="First Name"
+                    name="firstname"
+                    type="text"
+                    value={firstname}
+                    onChange={this.onChange}
+                    //error={errors.password}
+                  />
+                  <TextInputGroup
+                    label="Last Name"
+                    name="lastname"
+                    type="text"
+                    value={lastname}
+                    onChange={this.onChange}
+                    //error={errors.password}
+                  />
+                  <TextInputGroup
+                    label="Username"
+                    name="username"
+                    type="text"
+                    value={username}
+                    onChange={this.onChange}
+                    //error={errors.password}
+                  />
+                  <input
+                    type="submit"
+                    value="Login"
+                    className="btn btn-primary btn-block"
+                  />
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -125,13 +130,18 @@ class Register extends Component {
 //   )
 // )(Register)
 //xport default Register;
-
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+    authError: state.auth.authError
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     UserRegister: user => dispatch(UserRegister(user))
   };
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Register);

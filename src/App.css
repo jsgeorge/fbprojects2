@@ -1,9 +1,32 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.container {
+}
+header,
+nav,
+.navbar {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+header {
+  /* height: 100px;*/
+  background: #343a40;
+  /*padding-top: 30px;
+  padding-bottom: 30px; */
+}
+.pages {
+  padding-top: 20px;
+}
 .navbar-brand {
   color: rgb(85, 190, 250);
 }
 .margin-top {
   margin-top: 50px;
 }
+
 .appFont1 {
   color: rgb(52, 88, 119);
 }
@@ -68,12 +91,10 @@ ul.table li {
   width: 30%;
 }
 .home-wrapper {
-  padding: 10%;
+  text-align: center;
+  background: #fff;
 }
 .home-wrapper h3 {
-  color: #fff;
-  padding: 10%;
-  background: black;
 }
 .home-link-wrapper {
   padding: 10%;
@@ -118,6 +139,7 @@ ul.table li {
 }
 .content {
   float: left;
+  min-width: 400px;
 }
 .sidebar {
   float: right;
@@ -127,10 +149,39 @@ ul.table li {
   background: transparent;
   border: none;
 }
+.user-logo {
+  background: blue;
+  color: #fff;
+  border-radius: 40px;
+  padding: 8px 12px;
+}
 .sidebar {
+}
+.notify-wrapper {
   background: #fff;
+  min-height: 100px;
+  padding: 15px;
+}
+.detail {
+  background: #fff;
+  padding: 20px;
+  min-width: 400px;
+}
+.item {
+  background: #fff;
+  padding: 20px;
+  min-height: 100px;
 }
 @media (max-width: 500px) {
+  header,
+  nav,
+  .navbar {
+    margin: 0;
+  }
+  header {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
   .sidebar {
     margin-top: 20px;
     padding-top: 10px;

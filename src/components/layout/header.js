@@ -14,6 +14,7 @@ class Header extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { auth } = props;
+
     if (auth.uid) {
       return { isAuthenticated: true };
     } else {
@@ -22,19 +23,18 @@ class Header extends Component {
   }
 
   render() {
-    const { branding, auth } = this.props;
+    const { branding, auth, profile } = this.props;
     const { isAuthenticated } = this.state;
 
     return (
-      <div>
-        {isAuthenticated ? (
-          <Navbar
-            branding={branding}
-            auth={auth}
-            isAuthenticated={isAuthenticated}
-          />
-        ) : null}
-      </div>
+      <header>
+        <Navbar
+          branding={branding}
+          auth={auth}
+          profile={profile}
+          isAuthenticated={isAuthenticated}
+        />
+      </header>
     );
   }
 }
@@ -45,7 +45,8 @@ class Header extends Component {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   };
 };
 

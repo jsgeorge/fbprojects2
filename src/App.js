@@ -18,7 +18,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <Header branding="firebasePROJECT" />
-          <div className="container">
+
+          <div className="pages">
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/auth/login" component={Login} />

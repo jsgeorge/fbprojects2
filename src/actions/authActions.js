@@ -24,13 +24,34 @@ export const UserRegister = user => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     //make async call to database
     const firebase = getFirebase();
+    const firestore = getFirestore();
+
     firebase
-      .createUser({ ...user })
+      .auth()
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .then(resp => {
+        return firestore
+          .collection("users")
+          .doc(resp.user.uid)
+          .set({
+            firstname: user.firstname,
+            lastname: user.lastname,
+            initials: user.firstname[0] + user.lastname[0],
+            username: user.username
+          });
+      })
       .then(() => {
-        dispatch({ type: "USER_REGISTER", user });
+        const authorid = getState().firebase.auth.uid;
+        const profile = getState().firebase.profile;
+        firestore.collection("notifications").add({
+          username: profile.username,
+          action: "Joined the group",
+          submitDate: new Date()
+        });
+        dispatch({ type: "REGISTER_SUCCESS" });
       })
       .catch(err => {
-        dispatch({ type: "USER_REGISTER_ERROR", err });
+        dispatch({ type: "REGISTER_ERROR", err });
       });
   };
 };
