@@ -44,6 +44,7 @@ export const UserRegister = user => {
         const authorid = getState().firebase.auth.uid;
         const profile = getState().firebase.profile;
         firestore.collection("notifications").add({
+          authorid: authorid,
           username: profile.username,
           action: "Joined the group",
           submitDate: new Date()

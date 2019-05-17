@@ -8,12 +8,13 @@ class Project extends Component {
 
     return (
       <li className="list-group-item">
-        <h4>
-          <Link to={`projects/${id}`}>{title}</Link>
-        </h4>
-        <p>
-          By {author} <br /> {published ? dateString : null}
-        </p>
+        <Link to={`projects/${id}`}>
+          <h4>{title}</h4>
+          <p className="dateTime">
+            <strong>Submitted By {author}</strong> <br />
+            <strong>Created on </strong> {published ? dateString : null}
+          </p>
+        </Link>
       </li>
     );
   }

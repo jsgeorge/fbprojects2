@@ -12,7 +12,7 @@ const Navbar = props => {
     window.location.href = `/`;
   };
 
-  const { branding, auth, profile, isAuthenticated } = props;
+  const { branding, profile, isAuthenticated } = props;
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3 py-0">
@@ -44,20 +44,35 @@ const Navbar = props => {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav mr-auto ">
-              {/* {isAuthenticated ? (
+              <li className="nav-item">
+                <Link to="/about" className="nav-link">
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/products" className="nav-link">
+                  Products
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/pricing" className="nav-link">
+                  Pricing
+                </Link>
+              </li>
+              {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/projects" className="nav-link">
                     Projects
                   </Link>
                 </li>
-              ) : null} */}
-              {/* {isAuthenticated ? (
+              ) : null}{" "}
+              {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/settings" className="nav-link">
                     Settings
                   </Link>
                 </li>
-              ) : null} */}
+              ) : null}
               {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/projects/add" className="nav-link btnNew">
@@ -65,7 +80,6 @@ const Navbar = props => {
                   </Link>
                 </li>
               ) : null}
-
               {isAuthenticated ? (
                 <li className="nav-item">
                   <Link to="/user" className="nav-link">

@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Header branding="firebasePROJECT" />
+          <Header branding="firePROJECTS" />
 
           <div className="pages">
             <Switch>

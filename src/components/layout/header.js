@@ -43,7 +43,6 @@ class Header extends Component {
 //   auth: PropTypes.object.isRequired
 // };
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile

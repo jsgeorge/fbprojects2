@@ -5,48 +5,74 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { getDateString } from "../../helpers/misc";
 //import PropTypes from "prop-types";
+import { DeleteProject } from "../../actions/projectActions";
 
 class Detail extends Component {
+  state = {
+    id: this.props.match.params.id
+  };
   onDelete = () => {
-    console.log(this.props.project.id);
-    // this.props.firestore.collection("projects").doc(this.props.project.id);
+    //this.props.firestore.collection("projects").doc(this.props.project.id);
     // this.props.history.push("/");
+    this.props.DeleteProject(this.state);
+    this.props.history.push("/projects");
   };
   render() {
-    const { id, author, title, published, content } = this.props.project;
-    const dateString = getDateString(published.seconds * 1000);
-
     if (this.props.project) {
+      const {
+        author,
+        title,
+        published,
+        modified,
+        content
+      } = this.props.project;
+      const dateString = getDateString(published.seconds * 1000);
+      let modString = "";
+      if (modified) {
+        modString = getDateString(published.seconds * 1000);
+      }
       return (
         <div className="container">
-          <div class="row">
+          <div className="row">
             <div className="col-md-12 content ">
               <div className="detail">
                 <p>
-                  <i class="fas fa-arrow-alt-circle-left appFont2" />
+                  <i className="fas fa-arrow-alt-circle-left appFont2" />
                   <Link to="/projects">back to projects</Link>
-                  <span className="listingCmds">
-                    <Link
-                      to={`${id}/edit`}
-                      class="btn btn-success btn-sm bkdBlack"
-                    >
-                      Edit
-                    </Link>
-
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => this.onDelete()}
-                    >
-                      Delete
-                    </button>
-                  </span>
                 </p>
-                <h6>
-                  {author} {published ? dateString : null}
-                </h6>
+                <div>
+                  <h4>{title}</h4>
+                </div>
+                <div className="detail-content">
+                  <p>{content}</p>
+                  <p>ProjID: {this.props.match.params.id}</p>
+                  <h6 className="dateTime">
+                    <strong>Submitted by </strong> {author} <br />
+                    <strong>Created on </strong> {published ? dateString : null}
+                    <br />
+                    {modified ? (
+                      <span>
+                        <strong>Modified on </strong> {modString}
+                        <br />
+                      </span>
+                    ) : null}
+                  </h6>
+                </div>
+                <div className="listingCmds">
+                  <Link
+                    to={`${this.props.match.params.id}/edit`}
+                    className="btn btn-success btn-sm bkdBlack"
+                  >
+                    Edit
+                  </Link>
 
-                <h3>{title}</h3>
-                <p>{content}</p>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => this.onDelete()}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -74,7 +100,15 @@ const mapStateToProps = (state, ownProps) => {
   const project = projects ? projects[id] : null;
   return { project: project };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    DeleteProject: project => dispatch(DeleteProject(project))
+  };
+};
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   firestoreConnect([{ collection: "projects" }])
 )(Detail);

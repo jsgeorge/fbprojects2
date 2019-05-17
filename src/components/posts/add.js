@@ -38,42 +38,48 @@ class AddPost extends Component {
     const { title, content, errors } = this.state;
 
     return (
-      <div className="card mb-3">
-        <p>
-          <i class="fas fa-arrow-alt-circle-left appFont2" />
-          <Link to="/projects">back to projects</Link>
-        </p>
-        <div className="card-header">
-          <h4>New Project</h4>
-        </div>
-        <div className="card-body">
-          <form onSubmit={this.onSubmit}>
-            <TextInputGroup
-              label="Title"
-              name="title"
-              value={title}
-              onChange={this.onChange}
-              error={errors.title}
-            />
-            <label>Your post</label>
-            <br />
-            <textarea
-              className="form-control"
-              label="Details"
-              name="content"
-              type="text"
-              value={content}
-              onChange={this.onChange}
-              error={errors.content}
-              rows="6"
-            />
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12 content ">
+            <div className="card mb-3">
+              <p>
+                <i className="fas fa-arrow-alt-circle-left appFont2" />
+                <Link to="/projects">back to projects</Link>
+              </p>
+              <div className="card-header">
+                <h4>New Project</h4>
+              </div>
+              <div className="card-body">
+                <form onSubmit={this.onSubmit}>
+                  <TextInputGroup
+                    label="Title"
+                    name="title"
+                    value={title}
+                    onChange={this.onChange}
+                    error={errors.title}
+                  />
+                  <label>Your post</label>
+                  <br />
+                  <textarea
+                    className="form-control"
+                    label="Details"
+                    name="content"
+                    type="text"
+                    value={content}
+                    onChange={this.onChange}
+                    error={errors.content}
+                    rows="6"
+                  />
 
-            <input
-              type="submit"
-              value="Add client"
-              className="btn btn-primary"
-            />
-          </form>
+                  <input
+                    type="submit"
+                    value="Add client"
+                    className="btn btn-primary"
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

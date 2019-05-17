@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 //import Post from "./post";
 import { getDateString } from "../../helpers/misc";
 
@@ -18,9 +18,13 @@ class Notifications extends Component {
             <React.Fragment>
               <ul className="list-group">
                 {notifications.map(note => (
-                  <li className="list-group-item">
+                  <li className="list-group-item" key={note.id}>
                     <strong>{note.username}</strong> {note.action} <br />
-                    {note.submitDate ? getDateString(note.submitDate) : null}
+                    <span className="dateTime">
+                      {note.submitDate
+                        ? getDateString(note.submitDate.seconds * 1000)
+                        : null}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -51,5 +55,7 @@ const mapStateToProps = state => {
 };
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "notifications" }])
+  firestoreConnect([
+    { collection: "notifications", orderBy: ["submitDate", "desc"] }
+  ])
 )(Notifications);

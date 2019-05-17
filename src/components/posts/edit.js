@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import { compose } from "redux";
-// import { connect } from "react-redux";
-//import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { UpdateProject } from "../../actions/projectActions";
 
 class EditProject extends Component {
-  projectId = this.props.match.params.id;
-
+  state = {
+    id: this.props.match.params.id,
+    title: "",
+    author: "",
+    content: "",
+    published: "",
+    modified: new Date(),
+    errors: {}
+  };
   constructor(props) {
     super(props);
-    this.categoryInput = React.createRef();
-    this.authorInput = React.createRef();
     this.titleInput = React.createRef();
     this.contentInput = React.createRef();
   }
@@ -26,63 +32,89 @@ class EditProject extends Component {
     // firestore
     //   .update({ collection: "projects", doc: project.id }, updproject)
     //   .then(history.push("/projects"));
+    const { project } = this.props;
+    console.log("project");
+    console.log(project);
+    this.setState({
+      title: project.title,
+      content: project.content,
+      author: project.author,
+      published: project.published
+    });
+    console.log("state");
+    console.log(this.state);
+    const Proj = {
+      id: this.state.id,
+      title: this.titleInput.current.value,
+      content: this.contentInput.current.value,
+      author: project.author,
+      published: project.published,
+      modified: this.state.modified
+    };
+    console.log("Proj");
+    console.log(Proj);
+    this.props.UpdateProject(Proj);
+    this.props.history.push(`/projects/${this.props.match.params.id}`);
   };
+
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { project } = this.props;
 
     if (project) {
       return (
-        <div className="card mb-3">
-          <p>
-            <i class="fas fa-arrow-alt-circle-left appFont2" />
-            <Link to={`/projects/${this.projectId}`}>back to project</Link>
-          </p>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12 content ">
+              <div className="detail">
+                <p>
+                  <i className="fas fa-arrow-alt-circle-left appFont2" />
+                  <Link to={`/projects/${this.props.match.params.id}`}>
+                    back to project
+                  </Link>
+                </p>
 
-          <div className="card-header">
-            <h4>Edit project</h4>
-          </div>
-          <div className="card-body">
-            <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <label>Author</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  label="Author"
-                  name="author"
-                  ref={this.authorInput}
-                  defaultValue={project.author}
-                />
-              </div>
+                <div className="card-header">
+                  <h4>Edit project</h4>
+                </div>
+                <div className="card-body">
+                  <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                      <label>Title</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        label="Title"
+                        name="title"
+                        placeholder="Enter title"
+                        ref={this.titleInput}
+                        defaultValue={project.title}
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Description</label>
+                      <textarea
+                        className="form-control"
+                        label="project"
+                        name="content"
+                        ref={this.contentInput}
+                        placeholder=""
+                        defaultValue={project.content}
+                        onChange={this.onChange}
+                      />
+                    </div>
 
-              <div className="form-group">
-                <label>Title</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  label="Title"
-                  name="title"
-                  placeholder="Enter title"
-                  ref={this.titleInput}
-                  defaultValue={project.title}
-                />
+                    <input
+                      type="submit"
+                      value="Update"
+                      className="btn btn-primary"
+                    />
+                  </form>
+                </div>
               </div>
-              <div className="form-group">
-                <label>project</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  label="project"
-                  name="content"
-                  ref={this.contentInput}
-                  placeholder="Enter content"
-                  defaultValue={project.content}
-                />
-              </div>
-
-              <input type="submit" value="Update" className="btn btn-primary" />
-            </form>
+            </div>
           </div>
         </div>
       );
@@ -101,4 +133,22 @@ class EditProject extends Component {
 //   }))
 // )(EditProject);
 
-export default EditProject;
+//export default EditProject;
+const mapStateToProps = (state, ownProps) => {
+  const id = ownProps.match.params.id;
+  const projects = state.firestore.data.projects;
+  const project = projects ? projects[id] : null;
+  return { project: project };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    UpdateProject: project => dispatch(UpdateProject(project))
+  };
+};
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect([{ collection: "projects" }])
+)(EditProject);

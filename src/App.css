@@ -54,8 +54,15 @@ i {
   font-weight: bold;
 }
 .listingCmds {
-  width: 250px;
-  float: right;
+}
+.list-group-item a,
+.list-group-item:hover {
+  color: #111;
+  text-decoration: none;
+}
+.dateTime {
+  font-size: 12px;
+  color: #333;
 }
 img {
   width: 100%;
@@ -92,7 +99,6 @@ ul.table li {
 }
 .home-wrapper {
   text-align: center;
-  background: #fff;
 }
 .home-wrapper h3 {
 }
@@ -102,11 +108,20 @@ ul.table li {
 .home-link-wrapper ul li {
   margin: 20px auto;
 }
-.home-link {
+.home-login {
   clear: left;
   width: 100px;
   text-align: center;
   background: blue;
+  color: #fff;
+  padding: 5px 25px;
+  border-radius: 20px;
+}
+.home-reg {
+  clear: left;
+  width: 100px;
+  text-align: center;
+  background: green;
   color: #fff;
   padding: 5px 25px;
   border-radius: 20px;
@@ -165,7 +180,10 @@ ul.table li {
 .detail {
   background: #fff;
   padding: 20px;
-  min-width: 400px;
+  min-height: 300px;
+}
+.detail-content {
+  min-height: 200px;
 }
 .item {
   background: #fff;
@@ -203,5 +221,11 @@ ul.table li {
     display: block;
     width: 100%;
     text-align: left;
+  }
+  h4 {
+    font-size: 18px;
+  }
+  .navbar-brand {
+    font-size: 18px;
   }
 }

@@ -5,6 +5,10 @@ export const getDateString = msec => {
   let date = curDate.getDate();
   let mth = curDate.getMonth();
   let yr = curDate.getFullYear();
+  let hrs = curDate.getHours();
+  let min = curDate.getMinutes();
+  let sec = curDate.getSeconds();
+
   let mthName = "";
   switch (mth + 1) {
     case 1:
@@ -40,7 +44,8 @@ export const getDateString = msec => {
     default:
       mthName = "";
   }
-  let DateString = mthName + " " + date + " " + yr;
+  let DateString =
+    mthName + " " + date + ", " + yr + " " + hrs + ":" + min + ":" + sec;
   return DateString;
 };
 

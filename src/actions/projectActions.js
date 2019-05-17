@@ -22,6 +22,7 @@ export const CreateProject = project => {
       })
       .then(() => {
         firestore.collection("notifications").add({
+          authorid: authorid,
           username: profile.username,
           action: "Submitted a project",
           submitDate: new Date()
@@ -30,6 +31,59 @@ export const CreateProject = project => {
       })
       .catch(err => {
         dispatch({ type: "CREATE_PROJECT_ERROR", err });
+      });
+  };
+};
+export const UpdateProject = project => {
+  console.log(project);
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    //make async call to database
+    const firestore = getFirestore();
+    const authorid = getState().firebase.auth.uid;
+    const profile = getState().firebase.profile;
+    firestore
+      .collection("projects")
+      .doc(project.id)
+      .set({
+        ...project
+      })
+      .then(() => {
+        firestore.collection("notifications").add({
+          authorid: authorid,
+          username: profile.username,
+          action: "Modified a project",
+          submitDate: new Date()
+        });
+        dispatch({ type: "UPDATE_PROJECT", project });
+      })
+      .catch(err => {
+        dispatch({ type: "UPDATE_PROJECT_ERROR", err });
+      });
+  };
+};
+
+export const DeleteProject = project => {
+  console.log(project);
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    //make async call to database
+    const firestore = getFirestore();
+    const authorid = getState().firebase.auth.uid;
+    const profile = getState().firebase.profile;
+    firestore
+      .collection("projects")
+      .doc(project.id)
+      .delete()
+      .then(() => {
+        firestore.collection("notifications").add({
+          authorid: authorid,
+          username: profile.username,
+          action: "Deleted a project",
+          submitDate: new Date()
+        });
+        dispatch({ type: "DELETE_PROJECT" });
+      })
+      .catch(err => {
+        dispatch({ type: "DELETE_PROJECT_ERROR", err });
       });
   };
 };
