@@ -16,10 +16,6 @@ const Highlights = () => {
             with the release of Letraset sheets containing Lorem Ipsum passages
           </div>
           <div className="discount_wrapper">
-            <div className="discount_percentage">
-              <span> 30%</span>
-              <span>OFF</span>
-            </div>
             <div>
               <h3>PUrchase tickets before Feb 1, 2019</h3>
               <p>Loerm ipsum sdakfj ia sdif kjj sdkafsafjjsafj ksaj fskaj </p>
