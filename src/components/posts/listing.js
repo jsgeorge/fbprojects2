@@ -30,27 +30,23 @@ class Listing extends Component {
     return (
       <div className="container margin-top">
         <div className="row">
-          <div className="col-md-8 col-sm-8 col-xs-12 content">
-            <h5>Current Projects</h5>
+          <div className="col-md-8 col-sm-8 col-xs-12 ">
             {projects && projects.length > 0 ? (
-              <section>
-                <ul className="table list-group project-wrapper">
-                  {projects.map(project => (
-                    <Project key={project.id} project={project} />
-                  ))}
-                </ul>
-              </section>
+              <ul className="list-group">
+                {projects.map(project => (
+                  <Project key={project.id} project={project} />
+                ))}
+              </ul>
             ) : (
               <div className="item">
                 <p>No current projects</p>
               </div>
             )}
           </div>
-          <div className="col-md-4 col-sm-4 col-xs-12 sidebar">
-            <h5>Notifications</h5> <Notifications />
+          <div className="col-md-4 col-sm-4 col-xs-12 ">
+            <Notifications />
           </div>
         </div>
-        )
       </div>
     );
   }

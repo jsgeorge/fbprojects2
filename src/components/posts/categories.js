@@ -13,13 +13,15 @@ class Notifications extends Component {
 
     return (
       <div className="notify-wrapper">
+        <h5>Notifications</h5>
         {notifications && notifications.length > 0 ? (
           <div>
             <React.Fragment>
-              <ul className="list-group">
+              <ul className="list-group ">
                 {notifications.map(note => (
-                  <li className="list-group-item" key={note.id}>
-                    <strong>{note.username}</strong> {note.action} <br />
+                  <li className="list-group-item note-item" key={note.id}>
+                    <strong className="note-user">{note.username}</strong>{" "}
+                    {note.action} <br />
                     <span className="dateTime">
                       {note.submitDate
                         ? getDateString(note.submitDate.seconds * 1000)

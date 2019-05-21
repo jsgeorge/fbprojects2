@@ -7,11 +7,11 @@ class Project extends Component {
     const dateString = getDateString(published.seconds * 1000);
 
     return (
-      <li className="list-group-item">
+      <li className="list-group-item proj-item">
         <Link to={`projects/${id}`}>
           <h4>{title}</h4>
           <p className="dateTime">
-            <strong>Submitted By {author}</strong> <br />
+            <strong>Submitted By</strong> {author} <br />
             <strong>Created on </strong> {published ? dateString : null}
           </p>
         </Link>

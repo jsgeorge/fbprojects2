@@ -5,7 +5,7 @@ const Highlights = () => {
     <div className="highlight_wrapper bck_white">
       <div className="container">
         <div className="center_wrapper">
-          <h2>Highlights</h2>
+          <h3>Highlights</h3>
           <div className="highlight_description">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
