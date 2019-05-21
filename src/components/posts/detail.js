@@ -32,7 +32,7 @@ class Detail extends Component {
         modString = getDateString(published.seconds * 1000);
       }
       return (
-        <div className="container">
+        <div className="container  margin-top">
           <div className="row">
             <div className="col-md-12 content ">
               <div className="detail">

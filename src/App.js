@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Header from "./components/layout/header";
+import "./resources/styles.css";
+
+import Navbar from "./components/layout/navbar";
 import HomePage from "./components/homepage";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
@@ -16,10 +18,10 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
-          <Header branding="firePROJECTS" />
+        <div>
+          <Navbar branding="firePROJECTS" />
 
-          <div className="pages">
+          <div>
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/auth/login" component={Login} />

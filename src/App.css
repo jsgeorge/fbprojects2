@@ -4,27 +4,26 @@ body {
 }
 .container {
 }
+.margin-top {
+  margin-top: 100px;
+}
 header,
 nav,
 .navbar {
   margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 0;
+  min-height: 80px;
 }
+
 header {
   /* height: 100px;*/
   background: #343a40;
+  height: 50px;
   /*padding-top: 30px;
   padding-bottom: 30px; */
 }
 .pages {
   padding-top: 20px;
-}
-.navbar-brand {
-  color: rgb(85, 190, 250);
-}
-.margin-top {
-  margin-top: 50px;
 }
 
 .appFont1 {
@@ -165,10 +164,10 @@ ul.table li {
   border: none;
 }
 .user-logo {
-  background: blue;
+  background: orangered;
   color: #fff;
-  border-radius: 40px;
-  padding: 8px 12px;
+  border-radius: 80px;
+  padding: 12px;
 }
 .sidebar {
 }
@@ -194,7 +193,7 @@ ul.table li {
   header,
   nav,
   .navbar {
-    margin: 0;
+    min-height: 50px;
   }
   header {
     padding-top: 0;

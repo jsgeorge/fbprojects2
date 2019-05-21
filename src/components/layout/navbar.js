@@ -4,7 +4,6 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 //import { DisplayUser } from "./displayuser";
 import { UserLogout } from "../../actions/authActions";
-//import { logo } from '../../../public/images/logo.png';
 
 const Navbar = props => {
   const onLogout = () => {
@@ -12,13 +11,14 @@ const Navbar = props => {
     window.location.href = `/`;
   };
 
-  const { branding, profile, isAuthenticated } = props;
+  const { branding, profile, auth } = props;
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3 py-0">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3 py-0 fixed-top  ">
         <div className="container">
-          {isAuthenticated ? (
+          {auth.uid ? (
             <Link to="/projects" className="navbar-brand">
+              <div className="logo" />
               {branding}
             </Link>
           ) : (
@@ -40,80 +40,77 @@ const Navbar = props => {
           </button>
 
           <div
-            className="collapse navbar-collapse navbar-right"
+            className="collapse navbar-collapse justify-content-end"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav mr-auto ">
-              <li className="nav-item">
-                <Link to="/about" className="nav-link">
-                  About
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/products" className="nav-link">
-                  Products
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/pricing" className="nav-link">
-                  Pricing
-                </Link>
-              </li>
-              {isAuthenticated ? (
+            {auth.uid ? (
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link to="/about" className="nav-link">
+                    About
+                  </Link>
+                </li>
+
                 <li className="nav-item">
                   <Link to="/projects" className="nav-link">
                     Projects
                   </Link>
                 </li>
-              ) : null}{" "}
-              {isAuthenticated ? (
+
                 <li className="nav-item">
                   <Link to="/settings" className="nav-link">
                     Settings
                   </Link>
                 </li>
-              ) : null}
-              {isAuthenticated ? (
+
                 <li className="nav-item">
                   <Link to="/projects/add" className="nav-link btnNew">
                     New Project
                   </Link>
                 </li>
-              ) : null}
-              {isAuthenticated ? (
+
                 <li className="nav-item">
                   <Link to="/user" className="nav-link">
                     <span className="user-logo">{profile.initials}</span>
                   </Link>
                 </li>
-              ) : null}
-              {isAuthenticated ? (
                 <li className="nav-item">
                   <button onClick={() => onLogout()} className="nav-link">
                     Logout
                   </button>
                 </li>
-              ) : null}
-              {!isAuthenticated ? (
+              </ul>
+            ) : (
+              <ul className="navbar-nav ">
+                <li className="nav-item">
+                  <Link to="/about" className="nav-link">
+                    About
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link to="/auth/login" className="nav-link">
                     Login
                   </Link>
                 </li>
-              ) : null}
-              {!isAuthenticated ? (
+
                 <li className="nav-item">
                   <Link to="/auth/register" className="nav-link">
                     Register
                   </Link>
                 </li>
-              ) : null}
-            </ul>
+              </ul>
+            )}
           </div>
         </div>
       </nav>
     </div>
   );
+};
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
@@ -122,7 +119,7 @@ const mapDispatchToProps = dispatch => {
 };
 export default compose(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )
 )(Navbar);

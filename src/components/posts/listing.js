@@ -28,7 +28,7 @@ class Listing extends Component {
     // const { isAuthenticated } = this.state;
     if (!auth.uid) return <Redirect to="/auth/login" />;
     return (
-      <div className="container">
+      <div className="container margin-top">
         <div className="row">
           <div className="col-md-8 col-sm-8 col-xs-12 content">
             <h5>Current Projects</h5>
@@ -68,9 +68,6 @@ class Listing extends Component {
 // )(Listing);
 
 const mapStateToProps = state => {
-  // return {
-  //   projects: state.project.projects
-  // };
   return {
     projects: state.firestore.ordered.projects,
     auth: state.firebase.auth

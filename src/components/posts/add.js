@@ -38,7 +38,7 @@ class AddPost extends Component {
     const { title, content, errors } = this.state;
 
     return (
-      <div className="container">
+      <div className="container  margin-top">
         <div className="row">
           <div className="col-md-12 content ">
             <div className="card mb-3">

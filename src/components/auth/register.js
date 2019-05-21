@@ -48,7 +48,7 @@ class Register extends Component {
     if (auth.uid) return <Redirect to="/" />;
 
     return (
-      <div className="container">
+      <div className="container  margin-top">
         <div className="row">
           <div className="col-md-6 offset-md-3 ">
             <div className="card">

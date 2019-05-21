@@ -64,7 +64,7 @@ class EditProject extends Component {
 
     if (project) {
       return (
-        <div className="container">
+        <div className="container margin-top">
           <div className="row">
             <div className="col-md-12 content ">
               <div className="detail">
