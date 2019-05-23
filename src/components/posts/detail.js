@@ -27,6 +27,7 @@ class Detail extends Component {
       author: project.author,
       published: project.published,
       changed: this.state.changed,
+      priority: project.priority,
       status: level
     };
     console.log(proj);
