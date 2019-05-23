@@ -54,6 +54,106 @@ i {
 }
 .listingCmds {
 }
+.list-group-item {
+}
+.proj-item {
+  margin-bottom: 10px;
+}
+.proj-item .left,
+.detail .left {
+  float: left;
+  width: 75%;
+}
+.proj-item .right {
+  font-size: 12px;
+}
+.proj-item .right,
+.detail .right {
+  float: right;
+  width: 22%;
+  margin-right: 5px;
+}
+.proposal {
+  background: blue;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.development {
+  background: orange;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.testing {
+  background: purple;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.production {
+  background: rgb(10, 216, 72);
+  color: #fff;
+  padding: 2px 4px;
+  width: 80px;
+  font-size: 12px;
+  text-align: center;
+}
+.deployment {
+  background: rgb(14, 13, 13);
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.completed {
+  background: green;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.Low {
+  background: green;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.Medium {
+  background: orange;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.High {
+  background: red;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+.btnStatus {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+.chgStatusPanel {
+  border: 1px solid #aaa;
+  padding: 10px;
+}
 .list-group-item a,
 .list-group-item:hover {
   color: #111;
@@ -76,9 +176,7 @@ ul {
   margin: 0;
   padding: 0;
 }
-.list-group-item {
-  margin-bottom: 5px;
-}
+
 .fullWidth {
   width: 100%;
 }
@@ -189,6 +287,7 @@ ul.table li {
 }
 .detail-content {
   min-height: 200px;
+  clear: left;
 }
 .item {
   background: #fff;
@@ -220,7 +319,9 @@ ul.table li {
     margin-bottom: 0;
     padding: 0;
   }
-  .proj-item h4 {
+
+  .proj-item .left h6 {
+    color: blue;
     font-size: 16px;
   }
   .notify-wrapper {

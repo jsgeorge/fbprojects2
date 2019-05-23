@@ -17,14 +17,9 @@ const Navbar = props => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3 py-0 fixed-top  ">
         <div className="container">
           {auth.uid ? (
-            <Link to="/projects" className="navbar-brand">
-              <div className="logo" />
-              {branding}
-            </Link>
+            <Link to="/projects" className="navbar-brand" />
           ) : (
-            <Link to="/" className="navbar-brand">
-              {branding}
-            </Link>
+            <Link to="/" className="navbar-brand" />
           )}
 
           <button

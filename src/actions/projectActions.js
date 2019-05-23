@@ -18,7 +18,8 @@ export const CreateProject = project => {
         ...project,
         authorid: authorid,
         author: profile.username,
-        published: new Date()
+        published: new Date(),
+        status: 0
       })
       .then(() => {
         firestore.collection("notifications").add({
@@ -61,7 +62,33 @@ export const UpdateProject = project => {
       });
   };
 };
-
+export const ChangeStatus = project => {
+  console.log(project);
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    //make async call to database
+    const firestore = getFirestore();
+    const authorid = getState().firebase.auth.uid;
+    const profile = getState().firebase.profile;
+    firestore
+      .collection("projects")
+      .doc(project.id)
+      .set({
+        ...project
+      })
+      .then(() => {
+        firestore.collection("notifications").add({
+          authorid: authorid,
+          username: profile.username,
+          action: "Modified status",
+          submitDate: new Date()
+        });
+        dispatch({ type: "CHANGE_STATUS", project });
+      })
+      .catch(err => {
+        dispatch({ type: "CHANGE_STATUS_ERROR", err });
+      });
+  };
+};
 export const DeleteProject = project => {
   console.log(project);
   return (dispatch, getState, { getFirebase, getFirestore }) => {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import TextInputGroup from "../layout/TextInputGroup";
 import { Link, Redirect } from "react-router-dom";
-//import { compose } from "redux";
+import { compose } from "redux";
 import { connect } from "react-redux";
-//import { firestoreConnect } from "react-redux-firebase";
+import { firestoreConnect } from "react-redux-firebase";
 //import PropTypes from "prop-types";
 import { CreateProject } from "../../actions/projectActions";
 
@@ -13,8 +13,10 @@ class AddPost extends Component {
     title: "",
     content: "",
     published: new Date(),
+    priority: 0,
     errors: {}
   };
+  renderPriority = name => <div className={`${name}`}>{name}</div>;
 
   onSubmit = e => {
     e.preventDefault();
@@ -30,12 +32,16 @@ class AddPost extends Component {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
+  renderPriorities = priorities => {
+    priorities.map(item => <div className={`${item.name}`}>{item.name}</div>);
+  };
   render() {
     const { auth } = this.props;
 
     if (!auth.uid) return <Redirect to="/auth/login" />;
 
-    const { title, content, errors } = this.state;
+    const { title, content, priority, errors } = this.state;
+    const { priorities } = this.props;
 
     return (
       <div className="container  margin-top">
@@ -58,7 +64,25 @@ class AddPost extends Component {
                     onChange={this.onChange}
                     error={errors.title}
                   />
-                  <label>Your post</label>
+                  <label>Priority</label>
+                  <br />
+                  <div className="panel">
+                    {priorities && priorities.length > 0
+                      ? this.renderPriorities(priorities)
+                      : null}
+                  </div>
+                  <select
+                    name="priority"
+                    value={priority}
+                    onChange={this.onChange}
+                    error={errors.priority}
+                  >
+                    <option value="0">Low</option>
+                    <option value="1">Medium</option>
+                    <option value="2">High</option>
+                  </select>
+                  <br />
+                  <label>Description</label>
                   <br />
                   <textarea
                     className="form-control"
@@ -73,7 +97,7 @@ class AddPost extends Component {
 
                   <input
                     type="submit"
-                    value="Add client"
+                    value="Add Project"
                     className="btn btn-primary"
                   />
                 </form>
@@ -102,7 +126,8 @@ class AddPost extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    priorities: state.firestore.ordered.priorities
   };
 };
 
@@ -111,7 +136,10 @@ const mapDispatchToProps = dispatch => {
     CreateProject: project => dispatch(CreateProject(project))
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect([{ collection: "priorities" }])
 )(AddPost);
